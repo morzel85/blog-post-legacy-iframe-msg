@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>iframe 1b</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <h1>iframe 1b</h1>
+    User Name: <span id="userName">John Doe</span>
+    <iframe id="iframe2b" src="iframe2b.html" class="level-2"></iframe>
+
+    <script>
+        window.addEventListener('message', function (e) {
+            console.log('[iframe1b] Message received');
+
+            if (e.data.type === 'UPDATE_USER') {
+                console.log('[iframe1b] Handling message - updating user name to: ' + e.data.value);
+                document.getElementById('userName').innerText = e.data.value;
+            } else {
+                if (e.data.direction === 'UP') {
+                    console.log('[iframe1b] Passing message up');
+                    window.parent.postMessage(e.data, '*');
+                } else {
+                    console.log('[iframe1b] Passing message down');
+                    document.getElementById('iframe2b').contentWindow.postMessage(e.data, '*');
+                }
+            }               
+        });
+    </script>
+</body>
+</html>

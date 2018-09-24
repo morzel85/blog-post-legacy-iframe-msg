@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>iframe 2b</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <h1>iframe 2b</h1>
+    News:
+    <p id="news">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis molestie lorem velit, vitae vulputate ante tempor et.  
+    </p>
+    <button id="clearNews">Clear News</button>
+
+    <script>
+        window.addEventListener('message', function (e) {
+            console.log('[iframe2b] Message received');
+
+            if (e.data.type === 'UPDATE_NEWS') {
+                console.log('[iframe2b] Handling message - updating news to: ' + e.data.value);
+                document.getElementById('news').innerText = e.data.value;
+            } 
+        });        
+
+        document.getElementById('clearNews').addEventListener('click', function () {
+            document.getElementById('news').innerText = '';
+
+            console.log('[iframe2b] News cleared, sending message up, type: NEWS_CLEARED');
+            window.parent.postMessage({ direction: 'UP', type: 'NEWS_CLEARED' }, '*');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>iframe 0</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <h1>iframe 0</h1>
+
+    <input id="textToSend" type="text" /><br />
+    <button id="updateUserName">Update User Name</button>
+    <button id="updateAccountNumber">Update Account Number</button>
+    <button id="updateNews">Update News</button>
+    <span id="newsClearedNotice">---</span>
+
+    <iframe src="iframe1a.html" class="level-1"></iframe>
+    <iframe src="iframe1b.html" class="level-1"></iframe>
+
+    <script>
+        window.addEventListener('message', function (e) {
+            console.log('[iframe0] Message received');
+
+            if (e.data.type === 'NEWS_CLEARED') {
+                console.log('[iframe0] Handling message - notifying about news clear');
+                document.getElementById('newsClearedNotice').innerText = 'News cleared!';
+            }
+        });
+
+        const sendMessage = function (type, value) {
+            console.log('[iframe0] Sending message down, type: ' + type + ', value: ' + value);
+
+            var iframes = document.getElementsByTagName('iframe');
+            for (var i = 0; i < iframes.length; i++) {
+                iframes[i].contentWindow.postMessage({ direction: 'DOWN', type: type, value: value }, '*');
+            }
+        };
+
+        document.getElementById('updateUserName').addEventListener('click', function (event) {
+            sendMessage('UPDATE_USER', document.getElementById('textToSend').value);
+        });
+
+        document.getElementById('updateAccountNumber').addEventListener('click', function (event) {
+            sendMessage('UPDATE_ACCOUNT', document.getElementById('textToSend').value);
+        });
+
+        document.getElementById('updateNews').addEventListener('click', function (event) {
+            document.getElementById('newsClearedNotice').innerText = '---';
+
+            sendMessage('UPDATE_NEWS', document.getElementById('textToSend').value);
+        });
+    </script>
+</body>
+</html>

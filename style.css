@@ -1,0 +1,49 @@
+﻿body {
+    font-family: Verdana;
+    font-size: 11px;
+}
+
+h1 {
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 150px;
+    margin-bottom: 5px;
+}
+
+p {
+    margin-top: 3px;
+    color: #d21515;
+}
+
+span {
+    color: #d21515;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+iframe {
+    border: 1px solid gray;
+    padding: 0;
+    margin: 10px 0 0 10px;
+}
+
+iframe.level-0 {
+    width: 625px;
+    height: 320px;
+    background: #fffef8;
+}
+
+iframe.level-1 {
+    width: 280px;
+    height: 210px;
+    background: #fff9cb;
+}
+
+iframe.level-2 {
+    width: 240px;
+    height: 140px;
+    background: #ffe89d;
+}

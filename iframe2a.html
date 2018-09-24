@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>iframe 2a</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+    <h1>iframe 2a</h1>
+    Account Number: <span id="accountNumber">TL-001-420</span>
+
+    <script>
+        window.addEventListener('message', function (e) {
+            console.log('[iframe2a] Message received');
+
+            if (e.data.type === 'UPDATE_ACCOUNT') {
+                console.log('[iframe2a] Handling message - updating account number to: ' + e.data.value);
+                document.getElementById('accountNumber').innerText = e.data.value;
+            } 
+        });       
+    </script>
+</body>
+</html>
